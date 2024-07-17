@@ -20,8 +20,14 @@ const GameStartModal = ({ startGame, startGameTest }: GameStartModalProps) => {
     };
 
     const handleButton = async () => {
+        let start: boolean;
         if (connection && wallet) {
-            await initializeScore(connection, wallet);
+            start = await initializeScore(connection, wallet);
+        } else {
+            return;
+        }
+        if (!start) {
+            return;
         }
         setLoading(true);
         for (let i = timer; i > 0; i--) {

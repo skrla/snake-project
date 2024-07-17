@@ -1,16 +1,9 @@
-import {
-    Keypair,
-    PublicKey,
-    SendTransactionError,
-    SystemProgram,
-    Transaction,
-    TransactionInstruction,
-    sendAndConfirmTransaction,
-} from '@solana/web3.js';
+import { Keypair } from '@solana/web3.js';
 import { AnchorWallet } from '@solana/wallet-adapter-react';
 import { Program, AnchorProvider, web3, BN, setProvider } from '@coral-xyz/anchor';
 import { SnakeGame } from '../types/snake_game';
 import { Buffer } from 'buffer';
+import { toast } from 'react-toastify';
 window.Buffer = Buffer;
 const idl = require('../idl.json');
 
@@ -52,7 +45,7 @@ export const initializeGame = async (
             gameState = await program.account.game.fetch(game.publicKey);
             setRecord(gameState.winnerHighScore | 0);
         } catch (error) {
-            console.log("Can't connect with Blockchain!");
+            toast.error('Network error!');
         }
     }
 };

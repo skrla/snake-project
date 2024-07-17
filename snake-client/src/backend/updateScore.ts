@@ -4,6 +4,7 @@ import { Program, web3, getProvider } from '@coral-xyz/anchor';
 import { SnakeGame } from '../types/snake_game';
 import { Buffer } from 'buffer';
 import { ProgramAccount } from '@project-serum/anchor';
+import { toast } from 'react-toastify';
 window.Buffer = Buffer;
 const idl = require('../idl.json');
 
@@ -48,10 +49,7 @@ export const updateScore = async (connection: web3.Connection, wallet: AnchorWal
 
         console.log('Transaction successful with signature:', submitScore);
     } catch (error: any) {
-        console.log(error);
-        if (error.logs) {
-            console.log(error.logs);
-        }
+        toast.error('Unsuccessful attempt for updating the score!');
     }
 
     if (score > gameState.winnerHighScore) {
@@ -65,8 +63,9 @@ export const updateScore = async (connection: web3.Connection, wallet: AnchorWal
                         gameScore: gameScoreCurrent?.publicKey,
                     })
                     .rpc();
+                toast.success('YOU HAVE A NEW HIGH SCORE! 👑');
             } catch (error) {
-                console.log(error);
+                toast.error('Unsuccessful attempt for updating the high score!');
             }
         }
     }

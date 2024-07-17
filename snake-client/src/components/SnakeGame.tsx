@@ -33,6 +33,7 @@ export const SnakeGame = forwardRef(
         const [bodyImg, setBodyImg] = useState<HTMLImageElement | null>(null);
         const [appleImg, setAppleImg] = useState<HTMLImageElement | null>(null);
         const [headImg, setHeadImg] = useState<HTMLImageElement | null>(null);
+        const [test, setTest] = useState(true);
         const wallet = useAnchorWallet();
 
         const gameLoop = () => {
@@ -44,7 +45,13 @@ export const SnakeGame = forwardRef(
 
             setRotationAngle(newRotationAngle);
 
-            if (checkCollision(newSnakeHead)) endGame();
+            if (checkCollision(newSnakeHead)) {
+                if (test) {
+                    endGameTest();
+                } else {
+                    endGame();
+                }
+            }
             if (checkAppleCollision(snakeCopy)) {
                 setScore((prevScore) => prevScore + 1);
                 let newApple = createApple();
@@ -66,7 +73,14 @@ export const SnakeGame = forwardRef(
             captureScreenshot();
         };
 
-        const resetGame = () => {
+        const endGameTest = () => {
+            setSpeed(0);
+            setGameOver(true);
+            captureScreenshot();
+        };
+
+        const resetGame = (isTest: boolean) => {
+            setTest(isTest);
             setSnake(SNAKE_START);
             setApple(APPLE_START);
             setDir([0, -1]);

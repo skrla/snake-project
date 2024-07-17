@@ -6,7 +6,6 @@ import ModalButton from './modals/ModalButton';
 import { SnakeGame } from './SnakeGame';
 import { useAnchorWallet, useConnection } from '@solana/wallet-adapter-react';
 import { initializeGame } from '../backend/initializeGame';
-import { initializeScore } from '../backend/initializeScore';
 
 export const HomePage = () => {
     const [gameOver, setGameOver] = useState(false);
@@ -14,10 +13,8 @@ export const HomePage = () => {
     const [showStartGameModal, setShowStartGameModal] = useState(true);
     const [modalOpen, setModalOpen] = useState(false);
     const [screenshot, setScreenshot] = useState<string | null>(null);
-    const snakeGameRef = useRef<{ resetGame: () => void }>(null);
-    const [loading, setLoading] = useState(false);
+    const snakeGameRef = useRef<{ resetGame: (isTest: boolean) => void }>(null);
     const [record, setRecord] = useState(0);
-    const [timer, setTimer] = useState(3);
 
     const { connection } = useConnection();
     const wallet = useAnchorWallet();
@@ -40,7 +37,7 @@ export const HomePage = () => {
         setShowStartGameModal(false);
         setScore(0);
         if (snakeGameRef.current) {
-            snakeGameRef.current.resetGame();
+            snakeGameRef.current.resetGame(false);
         }
     };
 
@@ -48,12 +45,13 @@ export const HomePage = () => {
         setShowStartGameModal(false);
         setScore(0);
         if (snakeGameRef.current) {
-            snakeGameRef.current.resetGame();
+            snakeGameRef.current.resetGame(true);
         }
     };
 
     const handlePlayAgain = () => {
-        startGame();
+        setShowStartGameModal(true);
+        setGameOver(true);
     };
 
     useEffect(() => {
