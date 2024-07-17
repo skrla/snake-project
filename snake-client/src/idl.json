@@ -1,0 +1,190 @@
+{
+    "address": "13RUPAPTgSEHnvnVtPGXtD3wG8EXoLUkAuERLD96bSeB",
+    "metadata": {
+        "name": "snake_game",
+        "version": "0.1.0",
+        "spec": "0.1.0",
+        "description": "Created with Anchor"
+    },
+    "instructions": [
+        {
+            "name": "initialize_monthly_game",
+            "discriminator": [82, 94, 72, 26, 110, 37, 32, 186],
+            "accounts": [
+                {
+                    "name": "game",
+                    "writable": true,
+                    "signer": true
+                },
+                {
+                    "name": "admin",
+                    "writable": true,
+                    "signer": true
+                },
+                {
+                    "name": "system_program",
+                    "address": "11111111111111111111111111111111"
+                }
+            ],
+            "args": [
+                {
+                    "name": "game_price",
+                    "type": "u64"
+                }
+            ]
+        },
+        {
+            "name": "new_high_score",
+            "discriminator": [46, 82, 121, 229, 210, 170, 12, 11],
+            "accounts": [
+                {
+                    "name": "game",
+                    "writable": true
+                },
+                {
+                    "name": "winner",
+                    "writable": true
+                },
+                {
+                    "name": "game_score",
+                    "writable": true
+                }
+            ],
+            "args": []
+        },
+        {
+            "name": "submit_score",
+            "discriminator": [212, 128, 45, 22, 112, 82, 85, 235],
+            "accounts": [
+                {
+                    "name": "game",
+                    "writable": true
+                },
+                {
+                    "name": "game_score",
+                    "writable": true,
+                    "pda": {
+                        "seeds": [
+                            {
+                                "kind": "account",
+                                "path": "game.count",
+                                "account": "Game"
+                            },
+                            {
+                                "kind": "account",
+                                "path": "game"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "player",
+                    "writable": true,
+                    "signer": true
+                },
+                {
+                    "name": "system_program",
+                    "address": "11111111111111111111111111111111"
+                }
+            ],
+            "args": []
+        },
+        {
+            "name": "update_score",
+            "discriminator": [188, 226, 238, 41, 14, 241, 105, 215],
+            "accounts": [
+                {
+                    "name": "game",
+                    "writable": true
+                },
+                {
+                    "name": "game_score",
+                    "writable": true
+                },
+                {
+                    "name": "player",
+                    "writable": true,
+                    "signer": true
+                }
+            ],
+            "args": [
+                {
+                    "name": "score",
+                    "type": "u16"
+                }
+            ]
+        }
+    ],
+    "accounts": [
+        {
+            "name": "Game",
+            "discriminator": [27, 90, 166, 125, 74, 100, 121, 18]
+        },
+        {
+            "name": "GameScore",
+            "discriminator": [100, 200, 234, 23, 69, 12, 125, 141]
+        }
+    ],
+    "errors": [
+        {
+            "code": 6000,
+            "name": "Unauthorized",
+            "msg": "Unauthorized attempt to update score."
+        },
+        {
+            "code": 6001,
+            "name": "InvalidRecipient",
+            "msg": "Invalid recipient for payout."
+        }
+    ],
+    "types": [
+        {
+            "name": "Game",
+            "type": {
+                "kind": "struct",
+                "fields": [
+                    {
+                        "name": "authority",
+                        "type": "pubkey"
+                    },
+                    {
+                        "name": "winner",
+                        "type": "pubkey"
+                    },
+                    {
+                        "name": "winner_high_score",
+                        "type": "u16"
+                    },
+                    {
+                        "name": "count",
+                        "type": "u64"
+                    },
+                    {
+                        "name": "game_price",
+                        "type": "u64"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "GameScore",
+            "type": {
+                "kind": "struct",
+                "fields": [
+                    {
+                        "name": "submitter",
+                        "type": "pubkey"
+                    },
+                    {
+                        "name": "index",
+                        "type": "u64"
+                    },
+                    {
+                        "name": "score",
+                        "type": "u16"
+                    }
+                ]
+            }
+        }
+    ]
+}
