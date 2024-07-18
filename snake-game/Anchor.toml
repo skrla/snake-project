@@ -5,16 +5,16 @@ resolution = true
 skip-lint = false
 
 [programs.devnet]
-snake_game = "13RUPAPTgSEHnvnVtPGXtD3wG8EXoLUkAuERLD96bSeB"
+snake_game = "CBY3RWGHQJUjK9GBPnV5bzEPjqCZBbnjnLqBwCfCEi6y"
 
 [programs.localnet]
-snake_game = "13RUPAPTgSEHnvnVtPGXtD3wG8EXoLUkAuERLD96bSeB"
+snake_game = "CBY3RWGHQJUjK9GBPnV5bzEPjqCZBbnjnLqBwCfCEi6y"
 
 [registry]
 url = "https://anchor.projectserum.com"
 
 [provider]
-cluster = "Localnet"
+cluster = "Devnet"
 wallet = "~/.config/solana/id.json"
 
 [scripts]

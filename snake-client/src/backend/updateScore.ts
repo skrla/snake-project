@@ -42,6 +42,7 @@ export const updateScore = async (connection: web3.Connection, wallet: AnchorWal
         if (!gameScoreCurrent) {
             return;
         }
+        console.log(gameScoreCurrent.account.submitter.toString());
         const submitScore = await program.methods
             .updateScore(score)
             .accounts({ game: game.publicKey, player: wallet.publicKey, gameScore: gameScoreCurrent.publicKey })
@@ -54,6 +55,7 @@ export const updateScore = async (connection: web3.Connection, wallet: AnchorWal
 
     if (score > gameState.winnerHighScore) {
         if (gameScoreCurrent) {
+            gameState = await program.account.game.fetch(game.publicKey);
             try {
                 await program.methods
                     .newHighScore()
@@ -64,7 +66,11 @@ export const updateScore = async (connection: web3.Connection, wallet: AnchorWal
                     })
                     .rpc();
                 toast.success('YOU HAVE A NEW HIGH SCORE! 👑');
-            } catch (error) {
+            } catch (error: any) {
+                console.log(error);
+                if (error.logs) {
+                    console.log(error.logs);
+                }
                 toast.error('Unsuccessful attempt for updating the high score!');
             }
         }

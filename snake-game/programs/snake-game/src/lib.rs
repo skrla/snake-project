@@ -1,6 +1,6 @@
 use anchor_lang::prelude::*;
 
-declare_id!("13RUPAPTgSEHnvnVtPGXtD3wG8EXoLUkAuERLD96bSeB");
+declare_id!("CBY3RWGHQJUjK9GBPnV5bzEPjqCZBbnjnLqBwCfCEi6y");
 
 #[program]
 pub mod snake_game {
@@ -42,6 +42,7 @@ pub mod snake_game {
 
         if score > game.winner_high_score {
             game.winner_high_score = score;
+            game.winner = player.key()
         }
         game_score.score = score;
 
@@ -54,7 +55,7 @@ pub mod snake_game {
 
         require!(game.winner == *recipient.key, CustomError::InvalidRecipient);
 
-        let balance: u64 = game.to_account_info().lamports() / 10;
+        let balance: u64 = game.to_account_info().lamports() - (game.to_account_info().lamports() / 10);
 
         **game.to_account_info().try_borrow_mut_lamports()? -= balance;
         **recipient.to_account_info().try_borrow_mut_lamports()? += balance;
