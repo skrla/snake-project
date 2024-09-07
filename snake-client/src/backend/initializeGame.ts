@@ -34,7 +34,9 @@ export const initializeGame = async (
     try {
         gameState = await program.account.game.fetch(game.publicKey);
         setRecord(gameState.winnerHighScore);
-    } catch (error) {}
+    } catch (error) {
+        console.log(error);
+    }
     if (!gameState) {
         try {
             await program.methods

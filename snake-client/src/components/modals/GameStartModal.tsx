@@ -63,8 +63,9 @@ const GameStartModal = ({ startGame, startGameTest }: GameStartModalProps) => {
                                 <hr />
                                 <p className="flex flex-col gap-3 text-start text-white-500 mb-8">
                                     To play, use your arrow keys on your keyboard. Use arrow buttons if on mobile.
-                                    <hr />
                                 </p>
+                                <hr />
+
                                 <p className="flex flex-col gap-3 text-center font-semibold text-white-500 text-lg">
                                     Connect Wallet To Play For Prizes
                                 </p>
