@@ -3,6 +3,7 @@ import ModalButton from './ModalButton';
 import Icon from '../Icon';
 import { useAnchorWallet, useConnection } from '@solana/wallet-adapter-react';
 import { initializeScore } from '../../backend/initializeScore';
+import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 
 type GameStartModalProps = {
     startGame: () => void;
@@ -69,12 +70,20 @@ const GameStartModal = ({ startGame, startGameTest }: GameStartModalProps) => {
                                 <p className="flex flex-col gap-3 text-center font-semibold text-white-500 text-lg">
                                     Connect Wallet To Play For Prizes
                                 </p>
-                                <ModalButton
-                                    onClick={handleButton}
-                                    text={`${connection && wallet ? 'Play Game For 0.01' : 'Connect Wallet'}`}
-                                    className="flex justify-center items-center bg-purple-500"
-                                    visible={connection && wallet ? true : false}
-                                />
+                                {connection && wallet ? (
+                                    <ModalButton
+                                        onClick={handleButton}
+                                        text="Play Game For 0.01"
+                                        secondary
+                                        className="flex justify-center items-center"
+                                        visible={connection && wallet ? true : false}
+                                    />
+                                ) : (
+                                    <WalletMultiButton
+                                        style={{ width: '100%', justifyContent: 'center' }}
+                                        className="flex w-full justify-center"
+                                    />
+                                )}
                                 <ModalButton onClick={handleButtonTest} text="Play Test Game" />
                             </>
                         )}

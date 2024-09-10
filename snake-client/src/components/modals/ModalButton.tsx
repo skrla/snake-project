@@ -15,7 +15,9 @@ function ModalButton({ text, className, secondary, onClick, visible, disabled }:
         <button
             onClick={onClick}
             className={`px-4 py-3 w-full cursor-pointer text-base font-medium rounded-sm ${
-                secondary ? 'bg-white-500 font-semibold' : 'bg-green-500 text-white-500 font-semibold'
+                secondary
+                    ? 'bg-purple-500 hover:bg-purple-800 font-semibold'
+                    : 'bg-green-500 hover:bg-green-800 text-white-500 font-semibold'
             } ${disabled && 'cursor-not-allowed'} ${className} `}
         >
             {text}

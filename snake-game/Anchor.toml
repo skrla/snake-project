@@ -14,7 +14,7 @@ snake_game = "CBY3RWGHQJUjK9GBPnV5bzEPjqCZBbnjnLqBwCfCEi6y"
 url = "https://anchor.projectserum.com"
 
 [provider]
-cluster = "Devnet"
+cluster = "Localnet"
 wallet = "~/.config/solana/id.json"
 
 [scripts]
